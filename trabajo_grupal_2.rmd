@@ -27,6 +27,8 @@ equity <- read_excel("wacc.xls",
 
 equity <- equity[75, ]
 
+equity <- t(equity)
+
 balance <- read_excel("balance.xlsx",  range = "A1:C49")
 
 balance <- balance[-1, ]
