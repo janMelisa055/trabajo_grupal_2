@@ -29,6 +29,10 @@ equity <- equity[75, ]
 
 equity <- t(equity)
 
+equity <- as.data.frame(equity)
+
+colnames(equity) <- "values"
+
 balance <- read_excel("balance.xlsx",  range = "A1:C49")
 
 balance <- balance[-1, ]
