@@ -1,0 +1,38 @@
+---
+title: "Cosas útiles para trabajo"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(FinancialMath)
+```
+
+Vamos a adquirir un mac por $1 000 000, 
+credito por 24 cuotas iguales
+
+
+```{r}
+
+r <- 0.02 # tasa de interés mensual
+B <- 1000000 # monto del crédito
+n <- 24 # cuotas (número)
+
+# cálculo de cuota
+
+C <- r * B * (1 - (1 / (1 + r)^n))^(-1) # cuota
+
+tabla <- as.data.frame(amort.table(Loan = B, n = 24, i = r))
+
+```
+Otro caso
+
+```{r}
+
+amortizacion <- amort.table(Loan = 4600000, n = 24,
+ pmt = NA, i = 0.24, ic = 12, pf = 12, plot = TRUE)
+
+
+amortizacion_tabla <- as.data.frame(amortizacion$Schedule)
+
+```

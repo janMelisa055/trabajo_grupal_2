@@ -19,8 +19,6 @@ knitr::include_graphics("logo.png")
 
 # Trabajo Grupal 2
 ## 2023-04-12/2023-04-14
-\newpage
-\justifying
 
 ```{r, echo=FALSE, fig.align = "center"}
 knitr::include_graphics("coat_of_arms.png")
@@ -31,23 +29,33 @@ knitr::include_graphics("coat_of_arms.png")
 * Melissa Sumi Ibata
 * Exequiel Valdés Zúñiga
 
+\newpage
+\justifying
+
+# Introducción 
+
+Los bonos bullet son un tipo de instrumento financiero de renta fija,
+el cual se caracteriza por tener un pago total de su capital al final 
+de su vencimiento, en estos bonos se utiliza el valor nominal, una fecha
+de vencimiento y una tasa de interés fija o variable, en comparación a
+otros tipos de bonos como los bonos franceses este no tiene amortización, 
+ya que no cuentan con un pago periódico. Principalmente este tipo de
+bonos bullet son más atractivos para los inversores que buscan ingresos
+a largo plazo o una fuente de ingresos de jubilación, también en proyectos
+de empresas e incluso en gobiernos.
+En el presente informe se calculara y analizara un bono bullet emitido a
+10 años por la empresa Amazon con el fin de evaluar cuidadosamente las
+recompensas y los riesgos de este bono bullet para la empresa.
+
 ```{r, include=FALSE}
 library(readxl)
-library(FinancialMath)
+library(FinCal)
 
 equity <- read_excel("wacc.xls",
   range = "A19:L115", sheet = "Industry Averages")
-
 equity <- equity[75, ]
 
-equity <- t(equity)
-
-equity <- as.data.frame(equity)
-
-colnames(equity) <- "values"
-
 balance <- read_excel("balance.xlsx",  range = "A1:C49")
-
 balance <- balance[-1, ]
 
 pasivo_exigible <- as.numeric(balance[28, 3])
@@ -55,12 +63,70 @@ pasivo_exigible <- as.numeric(balance[28, 3])
 monto_de_emision_del_bono <- pasivo_exigible * 0.2
 
 # Datos a utilizar.
+```
 
-formato <- function(x) {
-    format(round(x, 2), big.mark = " ", scientific = FALSE,
-    decimal.mark = ",")
+```{r}
+dinero_millones <- function(x) {
+    paste0("$", format(round(x, 2), big.mark = " ", scientific = FALSE,
+    decimal.mark = ","), "M")
 }
-# Formato para añadir separadores de miles, coma decimal, y
-# dos puntos decimales.
+# Formato de dinero en millones para añadir separadores de miles,
+# coma decimal, y dos puntos decimales.
+
+porcien <- function(x) {
+    paste0(format(round(x, 2), big.mark = " ", scientific = FALSE,
+    decimal.mark = ",") * 100, "%")
+}
+
+# Formato para porcentajes en estilo SI francés (coma decimal).
+```
+
+Emisión Bonos Bullet
+
+```{r}
+# Variables: "ano", "periodo", "saldo_inicial",
+# "interes", "capital", "saldo_final".
+
+B <- -pv(r = as.numeric(equity[1, 7]), n = 20,
+ fv = monto_de_emision_del_bono, )
+
+ano <- as.numeric(seq(0.5, 10, 0.5))
+
+periodo <- 1:20
+
+saldo_inicial <- rep(monto_de_emision_del_bono, each = 20)
+
+```
+
+```{r}
+# Presentación bonita de las figuras.
+
+`Año` <- ano
+
+substrRight <- function(x, n)
+{
+  substr(x, nchar(x) - n + 1, nchar(x))
+}
+
+
+for(i in periodo)
+
+{
+`Año`[i] <- ifelse(
+  paste0(
+    substrRight(round(ano[i], 1), 2)) == ".5",
+  paste0(
+    ifelse(
+      ano[i] - 0.5 == 0, "", ano[i] - 0.5
+      ), "½"
+ ),
+ i / 2)
+}
+# Ciclo para representar años en fracciones.
+
+df <- data.frame(`Año`, "Periodo" = as.character(periodo),
+"Saldo Inicial" = dinero_millones(saldo_inicial))
+
+knitr::kable(df)
 ```
 
