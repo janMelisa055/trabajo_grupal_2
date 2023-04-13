@@ -11,12 +11,25 @@ setwd("C:/Users/oienh/Documents/R_UNIVERSITY_PROJECTS/5th_Semester/trabajo_grupa
 knitr::opts_chunk$set(echo = FALSE, comment = NA)
 ```
 
+```{r, echo=FALSE, fig.align = "left"}
+knitr::include_graphics("logo.png")
+```
+
 \center
 
 # Trabajo Grupal 2
 ## 2023-04-12/2023-04-14
 \newpage
 \justifying
+
+```{r, echo=FALSE, fig.align = "center"}
+knitr::include_graphics("coat_of_arms.png")
+```
+
+* Amanda Araya Orrego
+* Lucas Oliva Valverde
+* Melissa Sumi Ibata
+* Exequiel Valdés Zúñiga
 
 ```{r, include=FALSE}
 library(readxl)
@@ -40,6 +53,8 @@ balance <- balance[-1, ]
 pasivo_exigible <- as.numeric(balance[28, 3])
 
 monto_de_emision_del_bono <- pasivo_exigible * 0.2
+
+# Datos a utilizar.
 
 formato <- function(x) {
     format(round(x, 2), big.mark = " ", scientific = FALSE,

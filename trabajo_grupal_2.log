@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.3.30)  13 APR 2023 12:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.3.30)  13 APR 2023 12:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -404,25 +404,39 @@ Package hyperref Info: Link coloring OFF on input line 70.
 \@outlinefile=\write3
 \openout3 = `trabajo_grupal_2.out'.
 
+<logo.png, id=12, 150.5625pt x 56.21pt>
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 73.
+(pdftex.def)             Requested size: 150.569pt x 56.21242pt.
 [1
 
-{c:/Users/oienh/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/Users/oienh/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}] (./trabajo_grupal_2.aux)
+{c:/Users/oienh/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/Users/oienh/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc} <./logo.png>]
+<coat_of_arms.png, id=24, 301.125pt x 355.82938pt>
+File: coat_of_arms.png Graphic file (type png)
+<use coat_of_arms.png>
+Package pdftex.def Info: coat_of_arms.png  used on input line 86.
+(pdftex.def)             Requested size: 301.13344pt x 355.83934pt.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 91.
+(c:/Users/oienh/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) [2{c:/Users/oienh/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc} <./coat_of_arms.png>] (./trabajo_grupal_2.aux)
 Package rerunfilecheck Info: File `trabajo_grupal_2.out' has not changed.
 (rerunfilecheck)             Checksum: E8A19F1122163E66A6435567E829E50B;289.
  ) 
 Here is how much of TeX's memory you used:
- 10591 strings out of 477985
- 167446 string characters out of 5837740
- 1851382 words of memory out of 5000000
- 30653 multiletter control sequences out of 15000+600000
- 527594 words of font info for 38 fonts, out of 8000000 for 9000
+ 10647 strings out of 477985
+ 168700 string characters out of 5837740
+ 1852382 words of memory out of 5000000
+ 30702 multiletter control sequences out of 15000+600000
+ 527969 words of font info for 39 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,5n,76p,321b,430s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/Users/oienh/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/oienh/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb>
-Output written on trabajo_grupal_2.pdf (1 page, 40354 bytes).
+Output written on trabajo_grupal_2.pdf (2 pages, 118063 bytes).
 PDF statistics:
- 35 PDF objects out of 1000 (max. 8388607)
- 27 compressed objects within 1 object stream
- 6 named destinations out of 1000 (max. 500000)
- 17 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 50 PDF objects out of 1000 (max. 8388607)
+ 36 compressed objects within 1 object stream
+ 7 named destinations out of 1000 (max. 500000)
+ 27 words of extra memory for PDF output out of 10000 (max. 10000000)
 
