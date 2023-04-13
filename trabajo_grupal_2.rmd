@@ -1,0 +1,45 @@
+---
+output: pdf_document
+fontsize: 12pt
+linestretch: 1.5
+header-includes:
+  - \usepackage[document]{ragged2e}
+---
+
+```{r setup, include = FALSE}
+setwd("C:/Users/oienh/Documents/R_UNIVERSITY_PROJECTS/5th_Semester/trabajo_grupal_2")
+knitr::opts_chunk$set(echo = FALSE, comment = NA)
+```
+
+\center
+
+# Trabajo Grupal 2
+## 2023-04-12/2023-04-14
+\newpage
+\justifying
+
+```{r, include=FALSE}
+library(readxl)
+library(FinancialMath)
+
+equity <- read_excel("wacc.xls",
+  range = "A19:L115", sheet = "Industry Averages")
+
+equity <- equity[75, ]
+
+balance <- read_excel("balance.xlsx",  range = "A1:C49")
+
+balance <- balance[-1, ]
+
+pasivo_exigible <- as.numeric(balance[28, 3])
+
+monto_de_emision_del_bono <- pasivo_exigible * 0.2
+
+formato <- function(x) {
+    format(round(x, 2), big.mark = " ", scientific = FALSE,
+    decimal.mark = ",")
+}
+# Formato para añadir separadores de miles, coma decimal, y
+# dos puntos decimales.
+```
+
