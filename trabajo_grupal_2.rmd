@@ -97,7 +97,7 @@ periodo <- 1:20
 
 saldo_inicial <- D
 
-saldo_final <- saldo_inicial
+saldo_final <- as.numeric(NA)
 
 interes <- rep(tasa_cupon / 2 * D, each = length(periodo))
 
@@ -115,7 +115,7 @@ saldo_inicial[ifelse(i == length(periodo), NA, i + 1)] <- saldo_final[i]
 npv <- NPV(cf0 = D, cf = cuota[20],times = length(periodo), i = tasa_cupon)
 # Método formula
 
-vna <- (cuota[20] / D)^(1/length(periodo)) - 1
+vna <- (cuota[20] / D)^(1 / length(periodo)) - 1
 # Método manual
 
 minus_pv <- -pv(r = vna, n = length(periodo),
@@ -127,12 +127,11 @@ cat("Bono Bullet:", dinero_millones(minus_pv))
 ```
 
 ```{r}
-`Año` <- ano
+`Año` <- as.character(NA)
 
 substr_right <- function(x, n) {
   substr(x, nchar(x) - n + 1, nchar(x))
 }
-
 
 for(i in periodo) {
 `Año`[i] <- ifelse(
@@ -147,7 +146,7 @@ for(i in periodo) {
 }
 # Ciclo para representar años en fracciones.
 
-df <- data.frame(`Año`, "Periodo" = as.character(periodo),
+df <- data.frame(`Año`, "Periodo" = periodo,
 "Saldo Inicial" = dinero_millones(saldo_inicial),
 "Cuota" = dinero_millones(cuota),
 "Interés" = dinero_millones(interes),
