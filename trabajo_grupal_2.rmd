@@ -50,6 +50,8 @@ recompensas y los riesgos de este bono bullet para la empresa.
 ```{r, include=FALSE}
 library(readxl)
 library(FinCal)
+library(FinancialMath)
+library(gt)
 
 equity <- read_excel("wacc.xls",
   range = "A19:L115", sheet = "Industry Averages")
@@ -60,7 +62,9 @@ balance <- balance[-1, ]
 
 pasivo_exigible <- as.numeric(balance[28, 3])
 
-monto_de_emision_del_bono <- pasivo_exigible * 0.2
+D <- pasivo_exigible * 0.2
+
+tasa_cupon <- as.numeric(equity[1, 7])
 
 # Datos a utilizar.
 ```
@@ -81,20 +85,28 @@ porcien <- function(x) {
 # Formato para porcentajes en estilo SI francés (coma decimal).
 ```
 
-Emisión Bonos Bullet
+# Emisión Bonos Bullet
 
 ```{r}
 # Variables: "ano", "periodo", "saldo_inicial",
 # "interes", "capital", "saldo_final".
 
-B <- -pv(r = as.numeric(equity[1, 7]), n = 20,
- fv = monto_de_emision_del_bono, )
-
 ano <- as.numeric(seq(0.5, 10, 0.5))
 
 periodo <- 1:20
 
-saldo_inicial <- rep(monto_de_emision_del_bono, each = 20)
+saldo_inicial <- rep(D, each = 20)
+
+interes <- rep(tasa_cupon / 2 * D, each = 20)
+
+capital <- rep(0, each = 19)
+capital[20] <- D
+
+cuota <- interes + capital
+
+saldo_final <- saldo_inicial - capital
+
+-pv(r = 0.06, n = 20, fv = D, pmt = , type = 0)
 
 ```
 
@@ -110,7 +122,6 @@ substrRight <- function(x, n)
 
 
 for(i in periodo)
-
 {
 `Año`[i] <- ifelse(
   paste0(
@@ -125,8 +136,17 @@ for(i in periodo)
 # Ciclo para representar años en fracciones.
 
 df <- data.frame(`Año`, "Periodo" = as.character(periodo),
-"Saldo Inicial" = dinero_millones(saldo_inicial))
+"Saldo Inicial" = dinero_millones(saldo_inicial),
+"Cuota" = dinero_millones(cuota),
+"Interés" = dinero_millones(interes),
+"Capital" = dinero_millones(capital),
+"Saldo Final" = dinero_millones(saldo_final))
 
-knitr::kable(df)
+gt(df)
 ```
 
+VNA
+
+```{r}
+# NPV(cf0 = ,i = 0.2, cf = df$Cuota)
+```
