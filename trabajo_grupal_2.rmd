@@ -82,7 +82,6 @@ porcien <- function(x) {
     paste0(format(round(x, 2), big.mark = " ", scientific = FALSE,
     decimal.mark = ",") * 100, "%")
 }
-
 # Formato para porcentajes en estilo SI francés (coma decimal).
 ```
 
@@ -96,7 +95,9 @@ ano <- as.numeric(seq(0.5, 10, 0.5))
 
 periodo <- 1:20
 
-saldo_inicial <- rep(D, each = length(periodo))
+saldo_inicial <- D
+
+saldo_final <- saldo_inicial
 
 interes <- rep(tasa_cupon / 2 * D, each = length(periodo))
 
@@ -105,20 +106,27 @@ capital[length(periodo)] <- D
 
 cuota <- interes + capital
 
-saldo_final <- saldo_inicial - capital
+for(i in periodo){
+saldo_final[i] <- saldo_inicial[i] - capital[i]
+saldo_inicial[ifelse(i == length(periodo), NA, i + 1)] <- saldo_final[i]
+}
+# Ciclo para asignar el saldo final en base al saldo inicial y viceversa.
 
 npv <- NPV(cf0 = D, cf = cuota[20],times = length(periodo), i = tasa_cupon)
+# Método formula
 
-cat("Bono Bullet:", dinero_millones(
-  -pv(r = npv, n = length(periodo),
-   fv = D, pmt = D * npv, type = 0)))
+vna <- (cuota[20] / D)^(1/length(periodo)) - 1
+# Método manual
+
+minus_pv <- -pv(r = vna, n = length(periodo),
+   fv = D, pmt = D * vna, type = 0)
+
+cat("Bono Bullet:", dinero_millones(minus_pv))
 
 
 ```
 
 ```{r}
-# Presentación bonita de las figuras.
-
 `Año` <- ano
 
 substr_right <- function(x, n) {
@@ -145,6 +153,7 @@ df <- data.frame(`Año`, "Periodo" = as.character(periodo),
 "Interés" = dinero_millones(interes),
 "Capital" = dinero_millones(capital),
 "Saldo Final" = dinero_millones(saldo_final))
+# Presentación bonita de las figuras.
 
 gt(df)
 ```
