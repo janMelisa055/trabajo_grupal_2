@@ -107,7 +107,12 @@ cuota <- interes + capital
 
 saldo_final <- saldo_inicial - capital
 
--pv(r = 0.06, n = length(periodo), fv = D, pmt = , type = 0)
+npv <- NPV(cf0 = D, cf = cuota[20],times = length(periodo), i = tasa_cupon)
+
+cat("Bono Bullet:", dinero_millones(
+  -pv(r = npv, n = length(periodo),
+   fv = D, pmt = D * npv, type = 0)))
+
 
 ```
 
