@@ -9,6 +9,10 @@ header-includes:
 ```{r setup, include = FALSE}
 setwd("C:/Users/oienh/Documents/R_UNIVERSITY_PROJECTS/5th_Semester/trabajo_grupal_2")
 knitr::opts_chunk$set(echo = FALSE, comment = NA)
+library(readxl)
+library(FinCal)
+library(FinancialMath)
+library(gt)
 ```
 
 ```{r, echo=FALSE, fig.align = "left"}
@@ -47,12 +51,7 @@ En el presente informe se calculara y analizara un bono bullet emitido a
 10 años por la empresa Amazon con el fin de evaluar cuidadosamente las
 recompensas y los riesgos de este bono bullet para la empresa.
 
-```{r, include=FALSE}
-library(readxl)
-library(FinCal)
-library(FinancialMath)
-library(gt)
-
+```{r}
 equity <- read_excel("wacc.xls",
   range = "A19:L115", sheet = "Industry Averages")
 equity <- equity[75, ]
@@ -71,8 +70,10 @@ tasa_cupon <- as.numeric(equity[1, 7])
 
 ```{r}
 dinero_millones <- function(x) {
-    paste0("$", format(round(x, 2), big.mark = " ", scientific = FALSE,
-    decimal.mark = ","), "M")
+    ifelse(round(x, 2) != 0,
+      paste0("$", format(round(x, 2), big.mark = " ", scientific = FALSE,
+    decimal.mark = ","), "M"),
+    "$ -")
 }
 # Formato de dinero en millones para añadir separadores de miles,
 # coma decimal, y dos puntos decimales.
@@ -95,18 +96,18 @@ ano <- as.numeric(seq(0.5, 10, 0.5))
 
 periodo <- 1:20
 
-saldo_inicial <- rep(D, each = 20)
+saldo_inicial <- rep(D, each = length(periodo))
 
-interes <- rep(tasa_cupon / 2 * D, each = 20)
+interes <- rep(tasa_cupon / 2 * D, each = length(periodo))
 
-capital <- rep(0, each = 19)
-capital[20] <- D
+capital <- rep(0, each = length(periodo) - 1)
+capital[length(periodo)] <- D
 
 cuota <- interes + capital
 
 saldo_final <- saldo_inicial - capital
 
--pv(r = 0.06, n = 20, fv = D, pmt = , type = 0)
+-pv(r = 0.06, n = length(periodo), fv = D, pmt = , type = 0)
 
 ```
 
@@ -115,22 +116,20 @@ saldo_final <- saldo_inicial - capital
 
 `Año` <- ano
 
-substrRight <- function(x, n)
-{
+substr_right <- function(x, n) {
   substr(x, nchar(x) - n + 1, nchar(x))
 }
 
 
-for(i in periodo)
-{
+for(i in periodo) {
 `Año`[i] <- ifelse(
   paste0(
-    substrRight(round(ano[i], 1), 2)) == ".5",
+    substr_right(round(ano[i], 1), 2)) == ".5",
   paste0(
     ifelse(
       ano[i] - 0.5 == 0, "", ano[i] - 0.5
-      ), "½"
- ),
+      ),
+      "½"),
  i / 2)
 }
 # Ciclo para representar años en fracciones.
