@@ -143,16 +143,4 @@ df <- data.frame(`Año`, "Periodo" = periodo,
 
 gt(df)
 ```
-# Bono Francés
-```{r}
-bono_frances <- amort.table(Loan = D, n = length(periodo),
-  i = tasa_cupon, ic = 2, pf = 2, plot = T)
-## Bono francés.
 
-df2 <- as.data.frame(bono_frances$Schedule)
-
-gt(df2)
-
-```
-minus_pv <- -pv(r = 0.06, n = length(periodo),
-   fv = D, pmt = tasa_cupon * D, type = 0)
