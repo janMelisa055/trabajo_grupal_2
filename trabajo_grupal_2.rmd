@@ -146,7 +146,7 @@ gt(df)
 # Bono Francés
 ```{r}
 bono_frances <- amort.table(Loan = D, n = length(periodo),
-  i = 2, ic = 2, pf = 2, plot = T)
+  i = tasa_cupon, ic = 2, pf = 2, plot = T)
 ## Bono francés.
 
 df2 <- as.data.frame(bono_frances$Schedule)
