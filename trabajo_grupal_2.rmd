@@ -111,19 +111,6 @@ saldo_final[i] <- saldo_inicial[i] - capital[i]
 saldo_inicial[ifelse(i == length(periodo), NA, i + 1)] <- saldo_final[i]
 }
 # Ciclo para asignar el saldo final en base al saldo inicial y viceversa.
-
-npv <- NPV(cf0 = D, cf = cuota[20],times = length(periodo), i = tasa_cupon)
-# Método formula
-
-vna <- (cuota[20] / D)^(1 / length(periodo)) - 1
-# Método manual
-
-minus_pv <- -pv(r = vna, n = length(periodo),
-   fv = D, pmt = D * vna, type = 0)
-
-cat("Bono Bullet:", dinero_millones(minus_pv))
-
-
 ```
 
 ```{r}
@@ -156,9 +143,16 @@ df <- data.frame(`Año`, "Periodo" = periodo,
 
 gt(df)
 ```
-
-VNA
-
+# Bono Francés
 ```{r}
-# NPV(cf0 = ,i = 0.2, cf = df$Cuota)
+bono_frances <- amort.table(Loan = D, n = length(periodo),
+  i = 2, ic = 2, pf = 2, plot = T)
+## Bono francés.
+
+df2 <- as.data.frame(bono_frances$Schedule)
+
+gt(df2)
+
 ```
+minus_pv <- -pv(r = 0.06, n = length(periodo),
+   fv = D, pmt = tasa_cupon * D, type = 0)
